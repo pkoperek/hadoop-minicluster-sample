@@ -1,0 +1,47 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}
+
+apply plugin: 'java'
+
+compileJava {
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+}
+
+repositories {
+//    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://repository.cloudera.com/artifactory/cloudera-repos"    
+    }
+}
+
+configurations {
+    compile.extendsFrom provided
+}
+
+dependencies {
+    // workaround for problems with version 1.0.3
+    testCompile("commons-daemon:commons-daemon:1.0.5") {
+        force = true
+    }
+
+    testCompile(
+            [group: "junit", name: "junit", version: "4.11"],
+            [group: "org.mockito", name: "mockito-all", version: "1.9.5"],
+            [group: "org.easytesting", name: "fest-assert", version: "1.4"],
+            [group: "org.apache.hadoop", name: "hadoop-hdfs", version: "2.0.0-cdh4.7.0", classifier: "tests"],
+            [group: "org.apache.hadoop", name: "hadoop-hdfs", version: "2.0.0-cdh4.7.0"],
+            [group: "org.apache.hadoop", name: "hadoop-yarn-server-tests", version: "2.0.0-cdh4.7.0", classifier: "tests"],
+            [group: "org.apache.hadoop", name: "hadoop-mapreduce-client-jobclient", version: "2.0.0-cdh4.7.0", classifier: "tests"],
+            [group: "org.apache.hadoop", name: "hadoop-mapreduce-client-jobclient", version: "2.0.0-cdh4.7.0"],
+            [group: "org.apache.hadoop", name: "hadoop-mapreduce-client-app", version: "2.0.0-cdh4.7.0"],
+            [group: "org.apache.hadoop", name: "hadoop-mapreduce-client-hs", version: "2.0.0-cdh4.7.0"],
+            [group: "org.apache.hadoop", name: "hadoop-common", version: "2.0.0-cdh4.7.0", classifier: "tests"],
+            [group: "org.apache.hadoop", name: "hadoop-common", version: "2.0.0-cdh4.7.0"],
+            [group: "org.apache.hbase", name: "hbase", version: "0.94.15-cdh4.7.0", classifier: "tests"],
+            [group: "org.apache.hbase", name: "hbase", version: "0.94.15-cdh4.7.0"],
+            [group: "org.apache.hadoop", name: "hadoop-mapreduce-client-core", version: "2.0.0-cdh4.7.0"]
+    )
+}
